@@ -1,13 +1,3 @@
-//This is still work in progress
-/*
-Please report any bugs to nicomwaks@gmail.com
-
-i have added console.log on line 48 
-
-
-
-
- */
 'use strict'
 
 const express = require('express')
@@ -29,7 +19,7 @@ app.get('/', function(req, res) {
 })
 
 // for facebook verification
-app.get('/webhook/', function(req, res) {
+app.get('/webhook', function(req, res) {
     if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         res.send(req.query['hub.challenge'])
     } else {
@@ -38,7 +28,7 @@ app.get('/webhook/', function(req, res) {
 })
 
 // to post data
-app.post('/webhook/', function(req, res) {
+app.post('/webhook', function(req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
@@ -64,7 +54,7 @@ app.post('/webhook/', function(req, res) {
 
 // recommended to inject access tokens as environmental variables, e.g.
 // const token = process.env.FB_PAGE_ACCESS_TOKEN
-const token = "EAAcqgtNxib0BAK8hmcEuMMDPLzQCnGtZCjMg1USJP1Gxe1oWfV37op0xtyXfZCaPWaXQXjy2o3gd3mrUHpkUOIamlgcZAvm7WRQL3L1AATuTqQ3tiCZAtzbZALzmz2BvTwVYnjurXjZCTe8ACeJqch8rG3spZAhZAOeqT8hIV5NZBhwZDZD"
+const token = "EAAcqgtNxib0BAKlUR5KjwoU0nGYFFp0b4ytBGvvA80ivhY96aONSggvuW8tPanyCiLaZA8oXZCVMQF3ofNSQNyu6ZBR6nGKafoFNaQqjVCfW6eesWnKoetBx211tDhACa8tfRRxd1awFR5ViKirZCizxMeMbCI9yU01ZApaZCgGgZDZD"
 
 function sendTextMessage(sender, text) {
     let messageData = { text: text }
