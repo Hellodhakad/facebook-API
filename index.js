@@ -36,7 +36,7 @@ app.post('/webhook', function(req, res) {
             entry.messaging.forEach(function(event) {
                 console.log(event.message);
             });
-        }, this);
+        });
     } else {
         console.log('Message field not present');
     }
