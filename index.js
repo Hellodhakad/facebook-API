@@ -6,12 +6,12 @@ const request = require('request')
 const app = express()
 
 app.set('port', (process.env.PORT || 5000))
-
-// parse application/x-www-form-urlencoded
+    // parse application/json
+app.use(bodyParser.json())
+    // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
-// parse application/json
-app.use(bodyParser.json())
+
 
 // index
 app.get('/', function(req, res) {
