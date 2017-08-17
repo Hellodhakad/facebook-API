@@ -30,35 +30,26 @@ app.get('/webhook', function(req, res) {
 
 // to post data
 app.post('/webhook', function(req, res) {
-    console.log(req.body);
-    if (req.body.object === 'page') {
-        req.body.entry.forEach(function(element) {
-            entry.messaging.forEach(function(event) {
-                console.log(event.message);
-            });
-        }, this);
-    } else {
-        console.log('Message field not present');
+
+    let messaging_events = req.body.entry[0].messaging
+    for (let i = 0; i < messaging_events.length; i++) {
+        let event = req.body.entry[0].messaging[i]
+        let sender = event.sender.id
+        if (event.message && event.message.text) {
+            let text = event.message.text
+            if (text === 'Generic') {
+                console.log("welcome to chatbot")
+                    //sendGenericMessage(sender)
+                continue
+            }
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+        }
+        if (event.postback) {
+            let text = JSON.stringify(event.postback)
+            sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
+            continue
+        }
     }
-    // let messaging_events = req.body.entry[0].messaging
-    // for (let i = 0; i < messaging_events.length; i++) {
-    //     let event = req.body.entry[0].messaging[i]
-    //     let sender = event.sender.id
-    //     if (event.message && event.message.text) {
-    //         let text = event.message.text
-    //         if (text === 'Generic') {
-    //             console.log("welcome to chatbot")
-    //                 //sendGenericMessage(sender)
-    //             continue
-    //         }
-    //         sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-    //     }
-    //     if (event.postback) {
-    //         let text = JSON.stringify(event.postback)
-    //         sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
-    //         continue
-    //     }
-    // }
     res.sendStatus(200)
 })
 
