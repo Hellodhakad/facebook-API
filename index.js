@@ -124,15 +124,15 @@ function sendGenericMessage(sender) {
     })
 }
 
-FB.api(
-    "/122441918400802/feed",
-    function(response) {
-        if (response && !response.error) {
-            console.log(response);
-        }
-    }
-);
 
+var body = 'My first post using facebook-node-sdk';
+FB.api('122441918400802/feed', 'post', { message: body }, function(res) {
+    if (!res || res.error) {
+        console.log(!res ? 'error occurred' : res.error);
+        return;
+    }
+    console.log('Post Id: ' + res.id);
+});
 // spin spin sugar
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
