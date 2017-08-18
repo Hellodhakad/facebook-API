@@ -31,15 +31,15 @@ app.get('/webhook', function(req, res) {
 
 // to post data
 app.post('/webhook', function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.object === 'page') {
         var messaging = req.body.entry[0].messaging;
-        console.log('Messaging object:' + messaging);
+        // console.log('Messaging object:' + messaging);
         if (messaging) {
             var i;
             for (i = 0; i < messaging.length; i++) {
-                console.log('----------------------------------------\n' + 'Message from:' + messaging[i].sender.id +
-                    '\nMessage:' + messaging[i].message.text + '\n---------------------------------');
+                //  console.log('----------------------------------------\n' + 'Message from:' + messaging[i].sender.id +
+                //  '\nMessage:' + messaging[i].message.text + '\n---------------------------------');
             }
         }
     } else {
