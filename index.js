@@ -32,7 +32,8 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function(req, res) {
     console.log(req.body);
     if (req.body.object === 'page') {
-        console.log('Messaging object:' + req.body.entry[0].messaging);
+        var messaging = req.body.entry[0].messaging;
+        console.log('Messaging object:' + messaging);
         if (messaging) {
             var i;
             for (i = 0; i < messaging.length; i++) {
