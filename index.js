@@ -124,37 +124,14 @@ function sendGenericMessage(sender) {
     })
 }
 
-//initialize and set defaults
-var fbFeed = new FacebookPageFeed({
-    'appid': '2017066218523069',
-    'token': 'EAAcqgtNxib0BAFYv9lxH77yLUhCuRAsC1uJHiK0pU3J0N5QxfQTrs0XMS1dZCesFZBZArmaPDX2VEwt6r15D8O9YNeZBEGkp2MY7zPn1w73S816a1NBpZCNHqROeA5kcyVuIlxdUUKfy9wxVMu78uNzKvtMXZBXZAFKsQw4tpBz6wZDZD',
-    'pagename': '122441918400802',
-    'feedlimit': 10,
-    'format': 'html', //json,
-    'dateFormat': function(date) {
-        return date; //format date string with moment.js or others...
-    },
-    'likesFormat': function(likes) {
-        return likes; //format likes number...
-    },
-    'template': function(page, post) {
-        console.log(page, post);
-        var tpl = '<h1>' + page.name + '</h1>';
-        tpl += '<p>' + post.message + '</p>';
-        return tpl;
-    },
-    onLoad: function(res) {
-        console.log(res); //the result
+app.get(
+    "/122441918400802/feed",
+    function(response) {
+        if (response && !response.error) {
+            console.log(response);
+        }
     }
-});
-
-fbFeed.get(); //work's!
-
-fbFeed.get({
-    pagename: 'Dhakad',
-    feedlimit: 30,
-    format: 'json'
-});
+);
 
 // spin spin sugar
 app.listen(app.get('port'), function() {
