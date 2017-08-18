@@ -26,6 +26,7 @@ app.get('/webhook', function(req, res) {
         res.send('Error, wrong token')
     }
 });
+
 //{changes: [{ field: 'conversations', value: [Object] }],
 
 // to post data
@@ -44,25 +45,8 @@ app.post('/webhook', function(req, res) {
     } else {
         console.log('Message field not present');
     }
-    // let messaging_events = req.body.entry[0].messaging
-    // for (let i = 0; i < messaging_events.length; i++) {
-    //     let event = req.body.entry[0].messaging[i]
-    //     let sender = event.sender.id
-    //     if (event.message && event.message.text) {
-    //         let text = event.message.text
-    //         if (text === 'Generic') {
-    //             console.log("welcome to chatbot")
-    //                 //sendGenericMessage(sender)
-    //             continue
-    //         }
-    //         sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-    //     }
-    //     if (event.postback) {
-    //         let text = JSON.stringify(event.postback)
-    //         sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
-    //         continue
-    //     }
-    // }
+
+
     res.sendStatus(200);
 })
 
@@ -139,6 +123,38 @@ function sendGenericMessage(sender) {
         }
     })
 }
+
+//initialize and set defaults
+var fbFeed = new FacebookPageFeed({
+    'appid': '2017066218523069',
+    'token': 'EAAcqgtNxib0BAFYv9lxH77yLUhCuRAsC1uJHiK0pU3J0N5QxfQTrs0XMS1dZCesFZBZArmaPDX2VEwt6r15D8O9YNeZBEGkp2MY7zPn1w73S816a1NBpZCNHqROeA5kcyVuIlxdUUKfy9wxVMu78uNzKvtMXZBXZAFKsQw4tpBz6wZDZD',
+    'pagename': '122441918400802',
+    'feedlimit': 10,
+    'format': 'html', //json,
+    'dateFormat': function(date) {
+        return date; //format date string with moment.js or others...
+    },
+    'likesFormat': function(likes) {
+        return likes; //format likes number...
+    },
+    'template': function(page, post) {
+        console.log(page, post);
+        var tpl = '<h1>' + page.name + '</h1>';
+        tpl += '<p>' + post.message + '</p>';
+        return tpl;
+    },
+    onLoad: function(res) {
+        console.log(res); //the result
+    }
+});
+
+fbFeed.get(); //work's!
+
+fbFeed.get({
+    pagename: 'Dhakad',
+    feedlimit: 30,
+    format: 'json'
+});
 
 // spin spin sugar
 app.listen(app.get('port'), function() {
