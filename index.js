@@ -33,6 +33,12 @@ app.post('/webhook', function(req, res) {
     console.log(req.body);
     if (req.body.object === 'page') {
         console.log('Messaging object:' + req.body.entry[0].messaging);
+        if (messaging) {
+            var i;
+            for (i = 0; i < messaging.length; i++) {
+                console.log('the message is: ' + messaging[i]);
+            }
+        }
     } else {
         console.log('Message field not present');
     }
