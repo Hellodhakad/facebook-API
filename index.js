@@ -37,7 +37,8 @@ app.post('/webhook', function(req, res) {
         if (messaging) {
             var i;
             for (i = 0; i < messaging.length; i++) {
-                console.log('the message is: ' + messaging[i]);
+                console.log('Message from:' + messaging[i].sender.id +
+                    'Message:' + messaging[i].message.text);
             }
         }
     } else {
