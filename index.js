@@ -1,5 +1,5 @@
 'use strict'
-
+var FB = require('fb');
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
@@ -124,7 +124,7 @@ function sendGenericMessage(sender) {
     })
 }
 
-app.get(
+FB.api(
     "/122441918400802/feed",
     function(response) {
         if (response && !response.error) {
